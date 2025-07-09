@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Notifications.Domain.AggregatesModel.UserAggregate;
+using Notifications.Domain.AggregatesModel.Entities.User;
 
 namespace Notifications.Infrastructure.EntityConfigurations
 {
@@ -12,7 +12,13 @@ namespace Notifications.Infrastructure.EntityConfigurations
 
             userConfiguration.HasKey(o => o.Id);
 
-            userConfiguration.Ignore(b => b.DomainEvents);
+            userConfiguration.Property(p => p.Name).HasMaxLength(64);
+
+            userConfiguration.Property(p => p.PhoneNumber).HasMaxLength(64);
+
+            userConfiguration.Property(p => p.Email).HasMaxLength(256);
+
+            userConfiguration.Property(p => p.ExternalId);
         }
     }
 }
